@@ -3,6 +3,7 @@ import time
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from store_to_db import store_to_postgre
 
 from transform import transform_data, transform_to_DataFrame
  
@@ -83,7 +84,8 @@ def main():
     if all_books_data:
         df = transform_to_DataFrame(all_books_data)
         df = transform_data(df, 20000)
-        print(df)
+        db_url = 'postgresql+psycopg2://developer@localhost:5432/booksdb'
+        store_to_postgre(df, db_url)
     
  
  
